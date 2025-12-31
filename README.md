@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy New Year 2026</title>
+
+  <style>
+    /* ---------- THEME VARIABLES ---------- */
+    :root {
+      --bg: #f5f7fa;
+      --text: #111;
+      --card: #ffffff;
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --card: #1e293b;
+    }
+
+    body {
+      margin: 0;
+      padding: 30px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    /* ---------- THEME TOGGLE BUTTON ---------- */
+    .theme-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 1.3rem;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      background: var(--card);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* ---------- COUNTDOWN CARD ---------- */
+    .countdown-card {
+      margin: 30px auto;
+      padding: 25px;
+      max-width: 360px;
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    #countdown {
+      font-size: 1.4rem;
+      margin-top: 10px;
+    }
+
+    video {
+      margin-top: 25px;
+      border-radius: 12px;
+      max-width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Theme Toggle -->
+  <button id="themeToggle" class="theme-btn">🌙</button>
+
+  <h1>🎆 HAPPY NEW YEAR 2026 🎆</h1>
+  <p>YAYAYAYAYAYAYAYAYAYAYYAYAYAY 🎉</p>
+
+  <!-- Countdown -->
+  <div class="countdown-card">
+    <h2>Countdown to 2026</h2>
+    <p id="countdown">Loading...</p>
+  </div>
+
+  <!-- Video -->
+  <video width="780" height="640" controls>
+    <!-- IMPORTANT: Put the video in the SAME folder as this HTML -->
+    <source src="C:\Users\User\Downloads\HAPPY NEW YEAR 2026.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <script>
+    /* ---------- THEME TOGGLE ---------- */
+    const themeBtn = document.getElementById("themeToggle");
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+      themeBtn.textContent = "☀️";
+    }
+
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+
+      if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        themeBtn.textContent = "☀️";
+      } else {
+        localStorage.setItem("theme", "light");
+        themeBtn.textContent = "🌙";
+      }
+    });
+
+    /* ---------- COUNTDOWN ---------- */
+    const countdown = document.getElementById("countdown");
+    const newYear = new Date("January 1, 2026 00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = newYear - now;
+
+      if (diff <= 0) {
+        countdown.innerHTML = "🎉 Welcome to 2026 🎉";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdown.innerHTML =
+        `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+</body>
+</html>
